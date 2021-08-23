@@ -57,3 +57,33 @@
 	- Kubeadm
 	- Kops
 	- Kubetail
+
+
+## K8 Task - Node App with Mongodb Deployment
+
+<p align=center>
+	<img src=imgs/task1_diagram.PNG>
+</p>
+
+- Some Concepts:
+	- **Deployment**: Most common way to get your app on Kubernetes.
+	- **Pod**: The basic unit of work. Pods are the smallest deployable units of computing that can be created and managed in Kubernetes.
+	- **Service**: An abstract way to expose an application running on a set of Pods as a network service.
+	- **Secrets**: Let you store and manage sensitive information, such as passwords, OAuth tokens, and ssh keys.
+	- **Volumes**: A directory, possibly with some data in it, which is accessible to the containers in a pod. How that directory comes to be, the medium that backs it, and the contents of it are determined by the particular volume type used.
+	- **configmap**: An API object used to store non-confidential data in key-value pairs.
+
+- Display Commands:
+	- `kubectl get svc` - Display available services
+	- `kubectl get node` - Display available nodes
+	- `kubectl get pods` - Display available pods
+	- `kubectl get deploy` - Display available deployments
+
+1. Create a K8 deployment file (yml) for nginx and mongodb
+2. Deploy them using `kubectl create -f [name_of_file.yml]`, don't forget to save the file before and watch out for indentation errors.
+3. You can then check the deployment using `kubectl get deploy` and the pods with `kubectl get pods`
+4. Create a service (yml) file for mongo and nginx.
+5. Create the services using `kubectl create -f [name_of_file.yml]` and check the services.
+6. You can now check your browser to see if nginx is running on localhost
+7. You can also edit the deployment using `kubectl edit deploy [name-of-deployment]` and services using `kubectl edit svc [name-of-service]`
+8. You can delete your deployments using `kubectl delete deploy [name-of-deployment]` and `kubectl delete svc [name-of-service]`
