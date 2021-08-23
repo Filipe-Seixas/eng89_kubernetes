@@ -2,9 +2,7 @@
 
 ## What is Kubernetes and Why use it?
 
-- Kubernetes is an open-source **container-orchestration system** for automating computer application deployment, scaling, and management.
-
-- It is a portable, extensible, open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation.
+- Kubernetes is an open-source **container-orchestration system** for automating computer application deployment, scaling, and management. It is a portable, extensible, open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation.
 
 <p align=center>
 	<img src=imgs/docker_kubernetes.png>
@@ -48,7 +46,6 @@
 
 - **Managed Kubernetes Services** let users run managed, hosted Kubernetes clusters. These services remove much of the complexity of deploying, upgrading and maintaining Kubernetes, but still require expertise to manage.
 
-- Examples are:
 	- Google Kubernetes Engine (GKE)
 	- Amazon Elastic Kubernetes Service (EKS)
 	- Microsoft Kubernetes Azure (AKS)
@@ -56,7 +53,6 @@
 
 - **Non Managed Kubernetes Services** let users have full access to the cluster and master all the other related management components. They’ll also have more control over the deployment and administration of their cluster.
 
-- Examples are:
 	- Kubespray
 	- Kubeadm
 	- Kops
