@@ -87,3 +87,18 @@
 6. You can now check your browser to see if nginx is running on localhost
 7. You can also edit the deployment using `kubectl edit deploy [name-of-deployment]` and services using `kubectl edit svc [name-of-service]`
 8. You can delete your deployments using `kubectl delete deploy [name-of-deployment]` and `kubectl delete svc [name-of-service]`
+
+### Auto-Scaling
+
+```bash
+kubectl get pods
+kubectl describe pod [name_of_pod]  # Get logs for specific pod
+
+# By default the type of service is Cluster. LoadBalancer and NodePort are used for public access and must be specified.
+
+kubectl scale deploy [name_of_deployment] --replicas=8  # Scaling the deployment by changing number of replicas
+
+# Create the new file to manage auto scaling
+kubectl create -f file
+kubectl get hpa
+```
