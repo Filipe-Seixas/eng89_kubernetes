@@ -91,11 +91,11 @@
 ### Steps for Seeding
 
 ```bash
-delete everything
-create file mongo deployment
-create file nginx-deployment with seeds
-delete nginx-deployment
-create file nginx-deployment without seeds (comment it out)
+# delete everything
+# create file mongo deployment
+# create file nginx-deployment with seeds
+# delete nginx-deployment
+# create file nginx-deployment without seeds (comment it out)
 ```
 
 ## K8 Task - Auto-Scaling
@@ -176,17 +176,17 @@ kubectl create -f frontend-service.yml
 ### Steps for completing the task
 
 ```bash
-Cron schedule syntax
-┌────────────────── timezone (optional)
-| ┌───────────── minute (0 - 59)
-| │ ┌───────────── hour (0 - 23)
-| │ │ ┌───────────── day of the month (1 - 31)
-| │ │ │ ┌───────────── month (1 - 12)
-| │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
-| │ │ │ │ │ 7 is also Sunday on some systems)
-| │ │ │ │ │
-| │ │ │ │ │
-CRON_TZ=UTC *
+# Cron schedule syntax
+# ┌────────────────── timezone (optional)
+# | ┌───────────── minute (0 - 59)
+# | │ ┌───────────── hour (0 - 23)
+# | │ │ ┌───────────── day of the month (1 - 31)
+# | │ │ │ ┌───────────── month (1 - 12)
+# | │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+# | │ │ │ │ │ 7 is also Sunday on some systems)
+# | │ │ │ │ │
+# | │ │ │ │ │
+# CRON_TZ=UTC *
 
 # Create yml job file
 kubectl apply -f cron-job.yml
