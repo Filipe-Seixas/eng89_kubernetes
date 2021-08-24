@@ -88,7 +88,47 @@
 7. You can also edit the deployment using `kubectl edit deploy [name-of-deployment]` and services using `kubectl edit svc [name-of-service]`
 8. You can delete your deployments using `kubectl delete deploy [name-of-deployment]` and `kubectl delete svc [name-of-service]`
 
-### Auto-Scaling
+### Steps for Seeding
+
+```bash
+delete everything
+create file mongo deployment
+create file nginx-deployment with seeds
+delete nginx-deployment
+create file nginx-deployment without seeds (comment it out)
+```
+
+## K8 Task - Auto-Scaling
+
+- The Horizontal Pod Autoscaler (HPA) automatically scales the number of Pods in a replication controller, deployment, replica set or stateful set based on observed CPU utilization (or, with custom metrics support, on some other application-provided metrics).
+
+<p align=center>
+	<img src=imgs/hpa_diagram.PNG>
+</p>
+
+- hpa file
+```bash
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+
+metadata:
+  name: node-app-hpa
+  namespace: default
+
+# set your auto-scaling min and max numbers
+spec:
+  maxReplicas: 9
+  minReplicas: 2
+  # target your node-app-deployment so the hpa knows which
+  # deployment to scale up on demand, scales down when no longer needed
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: node-app
+  targetCPUUtilizationPercentage: 50
+```
+
+### Steps for completing the task
 
 ```bash
 kubectl get pods
@@ -101,4 +141,76 @@ kubectl scale deploy [name_of_deployment] --replicas=8  # Scaling the deployment
 # Create the new file to manage auto scaling
 kubectl create -f file
 kubectl get hpa
+```
+
+## K8 Task - PHP Frontend with Mongo
+
+- The guestbook application has a web frontend serving the HTTP requests written in PHP. It is configured to connect to the mongo Service to store Guestbook entries.
+- First we must deploy the mongodb (deployment and service).
+- After we deploy the Guestbook frontend (deployment and service).
+
+### Steps for completing the task
+
+```bash
+kubectl get all  # See all things running
+kubectl delete [svc or deploy or anything else] [name of thing]  # Repeat until empty
+kubectl create -f mongo-deployment.yml
+kubectl create -f mongo-service.yml
+kubectl create -f frontend-deployment.yml
+kubectl create -f frontend-service.yml
+# Wait a few mins
+```
+
+## K8 Task - Cronjob
+
+- It is used to schedule commands at a specific time. These scheduled commands or tasks are known as "Cron Jobs".
+
+### Use Cases
+
+- Send data to API: We can create a CronJob resource that sends data to an API or a database every fifteen minutes for example
+- Account management: If you have a membership site, where accounts have expiration dates, you can schedule cron jobs to regularly deactivate or delete accounts that are past their expiration dates.
+- You can send out daily newsletter e-mails.
+- You can expire and erase cached data files in a certain interval.
+- You can auto-check your website content for broken links and have a report e-mailed to yourself regularly.
+
+### Steps for completing the task
+
+```bash
+Cron schedule syntax
+┌────────────────── timezone (optional)
+| ┌───────────── minute (0 - 59)
+| │ ┌───────────── hour (0 - 23)
+| │ │ ┌───────────── day of the month (1 - 31)
+| │ │ │ ┌───────────── month (1 - 12)
+| │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+| │ │ │ │ │ 7 is also Sunday on some systems)
+| │ │ │ │ │
+| │ │ │ │ │
+CRON_TZ=UTC *
+
+# Create yml job file
+kubectl apply -f cron-job.yml
+kubectl get cronjob
+kubectl get job --watch
+# copy name from job and paste it on command bellow
+pods=$(kubectl get pods --selector=job-name=eng89-27163575 --output=jsonpath={.items[*].metadata.name})
+kubectl logs $pods
+```
+
+## K8 Task - Kompose Covert
+
+- Kompose is a conversion tool for Docker Compose to container orchestrators such as Kubernetes.
+
+### Why Use it?
+
+- Simplify your development process with Docker Compose and then deploy your containers to a production cluster
+- Convert your docker-compose.yaml with one simple command kompose convert
+
+### Example Usage
+
+```bash
+# Install kompose using chocolatey
+choco install kubernetes-kompose
+# Go to the same directory as your docker-compose file
+kompose convert
 ```
